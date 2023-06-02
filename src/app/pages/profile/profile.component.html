@@ -1,0 +1,92 @@
+<h2 class="content-block">Profile</h2>
+
+<div class="content-block dx-card responsive-paddings">
+  <div class="form-avatar">
+    <img src="data:image/png;base64,{{employee.photo}}"/>
+
+  </div>
+</div>
+
+  <div [hidden]="!myManagerLoaded" class="content-block dx-card responsive-paddings">
+
+    <p>
+      Manager:
+      <span>{{myMamager?.firstName}}</span>&nbsp;
+      <span>{{myMamager?.lastName}}</span>
+    </p>
+    <dx-button text="Report" (onClick)="reportToManager()"></dx-button>
+  </div>
+
+<div class="content-block dx-card responsive-paddings">
+
+  <dx-form id="form"
+           [readOnly]="true"
+           [formData]="employee"
+           labelLocation="top"
+           [colCountByScreen]="colCountByScreen"
+  >
+    <dxi-item dataField="firstName"/>
+    <dxi-item dataField="lastName"/>
+  </dx-form>
+</div>
+<div class="content-block dx-card responsive-paddings">
+  <div>Reports from subordinates</div>
+  <dx-data-grid
+    [dataSource]="employee.reports"
+    keyExpr="description">
+    <dxi-column dataField="description"/>
+    <dxi-column [calculateCellValue]="getReporterName"/>
+    <dxi-column dataField="creationDate" dataType="datetime"/>
+
+  </dx-data-grid>
+</div>
+
+<div class="content-block dx-card responsive-paddings">
+  <div>My tasks</div>
+  <dx-data-grid
+    [dataSource]="employee.tasks"
+    keyExpr="description">
+    <dxi-column dataField="description"/>
+    <dxi-column dataField="creationDate" dataType="datetime"/>
+    <dxi-column dataField="finishDate"/>
+    <dxi-column dataField="status"/>
+  </dx-data-grid>
+</div>
+
+<div class="content-block dx-card responsive-paddings">
+  <div>My subordinates</div>
+  <dx-data-grid
+    [dataSource]="employee.employees"
+    keyExpr="firstName">
+    <dxi-column dataField="firstName"/>
+    <dxi-column dataField="lastName"/>
+    <dxi-column dataField="position"/>
+    <dxi-column type="buttons">
+      <dxi-button
+        text="Assign task"
+        [onClick]="assignTask"
+        hint="Assign task">
+      </dxi-button>
+    </dxi-column>
+  </dx-data-grid>
+</div>
+
+<dx-popup
+  title="Please, set description"
+  [(visible)]="isPopupVisible"
+  [hideOnOutsideClick]="true"
+  (showCloseButtonChange)="true"
+  (showCloseButton)="true"
+
+  width="50%"
+  height="auto"
+>
+
+  <dx-text-area type="text" [value]="newUserInputDescription" (input)="onNewTaskTextChanged($event)"
+                placeholder="Add description..."></dx-text-area>
+
+  <div align="center">
+
+    <dx-button text="Create" (click)="popupValueHandler()"/>
+  </div>
+</dx-popup>

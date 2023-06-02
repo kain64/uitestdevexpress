@@ -1,0 +1,21 @@
+<h2 class="content-block">Employees</h2>
+<div class="content-block">
+  <div class="dx-card responsive-paddings">
+    <div class="content-block">
+      <dx-data-grid
+        [dataSource]="employees"
+        keyExpr="firstName">
+        <dxi-column dataField="firstName"/>
+        <dxi-column dataField="lastName"/>
+        <dxi-column dataField="position"/>
+        <dxi-column type="buttons">
+          <dxi-button
+            text="View"
+            [onClick]="goToPage"
+            hint="View" >
+          </dxi-button>
+        </dxi-column>
+      </dx-data-grid>
+    </div>
+</div>
+</div>
