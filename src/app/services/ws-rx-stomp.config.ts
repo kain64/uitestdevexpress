@@ -1,7 +1,6 @@
 import { RxStompConfig } from '@stomp/rx-stomp';
 
 export const WsRxStompConfig: RxStompConfig = {
-  // Which server?
   brokerURL:"ws://"+window.location.hostname+":8080/ws",
 
   // connectHeaders: {
@@ -9,8 +8,8 @@ export const WsRxStompConfig: RxStompConfig = {
   //   passcode: 'guest',
   // },
 
-  heartbeatIncoming: 0, // Typical value 0 - disabled
-  heartbeatOutgoing: 20000, // Typical value 20000 - every 20 seconds
+  heartbeatIncoming: 0,
+  heartbeatOutgoing: 20000,
 
   reconnectDelay: 200,
 
